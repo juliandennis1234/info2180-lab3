@@ -5,26 +5,30 @@ window.addEventListener('DOMContentLoaded', () => {
   let isXTurn = true; // X goes first
   const gameState = Array(squares.length).fill(null); // to track Xs and Os
 
-  // Initialize squares with the 'square' class and add click event
   squares.forEach((square, index) => {
+    // Exercise 1: Add 'square' class
     square.classList.add('square');
 
+    // Exercise 2: Click to place X or O
     square.addEventListener('click', () => {
-      // Only allow click if the square is empty
       if (!gameState[index]) {
-        // Determine current player
         const currentPlayer = isXTurn ? 'X' : 'O';
-
-        // Display X or O in the square
         square.textContent = currentPlayer;
         square.classList.add(currentPlayer);
-
-        // Update game state
         gameState[index] = currentPlayer;
-
-        // Switch turns
         isXTurn = !isXTurn;
       }
+    });
+
+    // Exercise 3: Hover effect
+    square.addEventListener('mouseover', () => {
+      if (!gameState[index]) { // only hover if square is empty
+        square.classList.add('hover');
+      }
+    });
+
+    square.addEventListener('mouseleave', () => {
+      square.classList.remove('hover');
     });
   });
 });
