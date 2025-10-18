@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // Disable further clicks
         squares.forEach((square, index) => {
           if (!gameState[index]) {
-            square.removeEventListener('click', handleClick(index));
+            square.removeEventListener('click', square.clickHandler);
           }
         });
         return true;
@@ -41,6 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
       squares[index].classList.add(currentPlayer);
       gameState[index] = currentPlayer;
 
+      // Check winner
       if (!checkWinner()) {
         isXTurn = !isXTurn;
       }
@@ -58,7 +59,8 @@ window.addEventListener('DOMContentLoaded', () => {
     square.addEventListener('mouseleave', () => square.classList.remove('hover'));
 
     // Click events
-    square.addEventListener('click', () => handleClick(index));
+    square.clickHandler = () => handleClick(index);
+    square.addEventListener('click', square.clickHandler);
   });
 
   // New Game button
